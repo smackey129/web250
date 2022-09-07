@@ -56,7 +56,7 @@ echo "Unicycle: ".$uni->wheel_details()."<br><br>";
 $trek->set_weight_kg(1.0);
 $uni->set_weight_kg(2.0);
 
-echo "Bicycle: ".$trek->weight_kg()."<br>";
-echo "Unicycle: ".$uni->weight_kg()."<br><br>";
+echo "Bicycle: ".$trek->weight_kg().", ".$trek->weight_lbs()."<br>";
+echo "Unicycle: ".$uni->weight_kg().", ".$trek->weight_lbs()."<br><br>";
 
 ?>
