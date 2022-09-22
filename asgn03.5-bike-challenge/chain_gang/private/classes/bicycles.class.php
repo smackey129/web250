@@ -33,7 +33,7 @@ class Bicycle {
 
   public function weight_kg()
   {
-    return $this->weight_kg;
+    return number_format($this->weight_kg, 2) .' kg';
   }
 
   public function set_weight_kg($weight_kg)
@@ -43,7 +43,8 @@ class Bicycle {
 
   public function weight_lbs()
   {
-    return $this->weight_kg / .454;
+    $weight_lbs =  $this->weight_kg / .454;
+    return number_format($weight_lbs, 2) .' lbs';
   }
 
   public function set_weight_lbs($weight_lbs)
@@ -55,7 +56,7 @@ class Bicycle {
     if($this->condition_id > 0 AND $this->condition_id <= 5)
       return self::CONDITIONS[$this->condition_id];
     else
-      return "Invalid condition_id";
+      return 'Invalid condition_id';
   }
 }
 

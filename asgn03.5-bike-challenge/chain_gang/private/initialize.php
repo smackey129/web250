@@ -26,6 +26,7 @@
   
   // Load class definitions manually
   require_once("classes/bicycles.class.php");
+  require_once("classes/parsecsv.class.php");
 
   // Autoload class definitions
   function my_autoload($class) {
