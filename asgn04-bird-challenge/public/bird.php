@@ -28,6 +28,7 @@
 $parser = new ParseCSV(PRIVATE_PATH . '/wnc-birds.csv');
 ParseCSV::$delimiter = '|';
 $bird_array = $parser->parse();
+var_dump($bird_array);
 
 ?>
       <?php foreach($bird_array as $args) { ?>
@@ -36,9 +37,9 @@ $bird_array = $parser->parse();
         <td><?= h($bird->common_name); ?></td>
         <td><?= h($bird->habitat); ?></td>
         <td><?= h($bird->food); ?></td>
-        <td><?= h($bird->nest_palcement); ?></td>
+        <td><?= h($bird->nest_placement); ?></td>
         <td><?= h($bird->behavior); ?></td>
-        <td><?= h($bird->conservation_id); ?></td>
+        <td><?= h($bird->conservation_level()); ?></td>
         <td><?= h($bird->backyard_tips); ?></td>
       </tr>
       <?php } ?>
