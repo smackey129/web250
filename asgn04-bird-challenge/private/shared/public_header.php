@@ -13,7 +13,7 @@
       <h1>
         <a href="<?php echo url_for('/index.php'); ?>">
           <img class="bike-icon" src="<?php echo url_for('/images/tufted-titmouse.jpg') ?>" /><br />
-          Chain Gang
+          WNC Birds
         </a>
       </h1>
     </header>

@@ -7,10 +7,9 @@
 
   <div id="page">
     <div class="intro">
-      <img class="inset" src="<?php echo url_for('/images/AdobeStock_55807979_thumb.jpeg') ?>" />
-      <h2>Our Inventory of Used Bicycles</h2>
-      <p>Choose the bike you love.</p>
-      <p>We will deliver it to your door and let you try it before you buy it.</p>
+      
+      <h1>Small Sampling of WNC Birds</h1>
+      
     </div>
 
     <table id="inventory">
@@ -26,22 +25,21 @@
 
 <?php
 
-$parser = new ParseCSV(PRIVATE_PATH . '/used_bicycles.csv');
-$bike_array = $parser->parse();
-
+$parser = new ParseCSV(PRIVATE_PATH . '/wnc-birds.csv');
+ParseCSV::$delimiter = '|';
+$bird_array = $parser->parse();
 
 ?>
-      <?php foreach($bike_array as $args) { ?>
-        <?php $bike = new Bicycle($args); ?>
+      <?php foreach($bird_array as $args) { ?>
+        <?php $bird = new Bird($args); ?>
       <tr>
-        <td><?php echo h($bike->brand); ?></td>
-        <td><?php echo h($bike->model); ?></td>
-        <td><?php echo h($bike->year); ?></td>
-        <td><?php echo h($bike->category); ?></td>
-        <td><?php echo h($bike->gender); ?></td>
-        <td><?php echo h($bike->color); ?></td>
-        <td><?php echo h($bike->weight_kg()) . ' / ' . h($bike->weight_lbs()); ?></td>
-        <td><?php echo h($bike->condition()); ?></td>
+        <td><?= h($bird->common_name); ?></td>
+        <td><?= h($bird->habitat); ?></td>
+        <td><?= h($bird->food); ?></td>
+        <td><?= h($bird->nest_palcement); ?></td>
+        <td><?= h($bird->behavior); ?></td>
+        <td><?= h($bird->conservation_id); ?></td>
+        <td><?= h($bird->backyard_tips); ?></td>
       </tr>
       <?php } ?>
 
