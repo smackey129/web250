@@ -28,7 +28,6 @@
 $parser = new ParseCSV(PRIVATE_PATH . '/wnc-birds.csv');
 ParseCSV::$delimiter = '|';
 $bird_array = $parser->parse();
-var_dump($bird_array);
 
 ?>
       <?php foreach($bird_array as $args) { ?>
