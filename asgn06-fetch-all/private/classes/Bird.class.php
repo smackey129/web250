@@ -1,6 +1,55 @@
 <?php 
 
 class Bird {
+
+  static public $database;
+
+  static public function set_database($database) {
+    self::$database = $database;
+  }
+
+  static public function find_by_sql($sql) {
+    $result = self::$database->query($sql);
+    if(!$result) {
+      exit("Database query failed.");
+    }
+
+    while ($record = $result->fetch_assoc()){
+      $object_array[] = self::instantiate($record);
+    }
+
+    $result->free();
+
+    return $object_array;
+  }
+
+  static public function find_all() {
+    $sql = "SELECT * FROM birds";
+    return self::find_by_sql($sql);
+  }
+
+  static protected function instantiate($record) {
+    $object = new self;
+    foreach($record as $property => $value) {
+      if(property_exists($object, $property)) {
+        $object->$property = $value;
+      }
+    }
+    return $object;
+  }
+
+  static public function find_by_id($id) {
+    $sql = "SELECT * FROM birds ";
+    $sql .= "WHERE id='" . self::$database->escape_string($id) . "'";
+    $obj_array = self::find_by_sql($sql);
+    if(!empty($obj_array)) {
+      return array_shift($obj_array);
+    } else {
+      return false;
+    }
+  }
+
+  public $id;
   public $common_name;
   public $habitat;
   public $food;
@@ -17,13 +66,14 @@ class Bird {
 
   public function __construct($args=[])
   {
-    $this->common_name = $args['common_name'];  
-    $this->habitat = $args['habitat'];
-    $this->food = $args['food'];
-    $this->nest_placement = $args['nest_placement'];
-    $this->behavior = $args['behavior'];
-    $this->conservation_id = $args['conservation_id'];
-    $this->backyard_tips = $args['backyard_tips'];  
+    $this->id = $args['id'] ?? NULL;
+    $this->common_name = $args['common_name'] ?? NULL;  
+    $this->habitat = $args['habitat'] ?? NULL;
+    $this->food = $args['food'] ?? NULL;
+    $this->nest_placement = $args['nest_placement'] ?? NULL;
+    $this->behavior = $args['behavior'] ?? NULL;
+    $this->conservation_id = $args['conservation_id'] ?? NULL;
+    $this->backyard_tips = $args['backyard_tips'] ?? NULL;  
   }
 
   public function conservation_level(){

@@ -25,13 +25,10 @@
 
 <?php
 
-$parser = new ParseCSV(PRIVATE_PATH . '/wnc-birds.csv');
-ParseCSV::$delimiter = '|';
-$bird_array = $parser->parse();
+$birds = Bird::find_all();
 
 ?>
-      <?php foreach($bird_array as $args) { ?>
-        <?php $bird = new Bird($args); ?>
+      <?php foreach($birds as $bird) { ?>
       <tr>
         <td><?= h($bird->common_name); ?></td>
         <td><?= h($bird->habitat); ?></td>
@@ -46,6 +43,9 @@ $bird_array = $parser->parse();
     </table>
   </div>
 
+  <?php
+  ?>
 </div>
+
 
 <?php include(SHARED_PATH . '/public_footer.php'); ?>
