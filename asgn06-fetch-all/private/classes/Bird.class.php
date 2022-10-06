@@ -9,7 +9,8 @@ class Bird {
   }
 
   static public function find_by_sql($sql) {
-    $result = self::$database->query($sql);
+    $sql->execute();
+    $result = $sql->get_result();
     if(!$result) {
       exit("Database query failed.");
     }
@@ -24,7 +25,8 @@ class Bird {
   }
 
   static public function find_all() {
-    $sql = "SELECT * FROM birds";
+    $sql = self::$database->prepare("SELECT * FROM birds");
+    // $sql = "SELECT * FROM birds";
     return self::find_by_sql($sql);
   }
 
@@ -39,8 +41,8 @@ class Bird {
   }
 
   static public function find_by_id($id) {
-    $sql = "SELECT * FROM birds ";
-    $sql .= "WHERE id='" . self::$database->escape_string($id) . "'";
+    $sql = self::$database->prepare("SELECT * FROM birds WHERE id = ?");
+    $sql->bind_param('s', $id);
     $obj_array = self::find_by_sql($sql);
     if(!empty($obj_array)) {
       return array_shift($obj_array);

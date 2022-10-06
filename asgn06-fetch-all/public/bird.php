@@ -21,6 +21,7 @@
         <th>Behavior</th>
         <th>Conservation Level</th>
         <th>Backyard Tips</th>
+        <th>&nbsp;</th>
       </tr>
 
 <?php
@@ -37,6 +38,7 @@ $birds = Bird::find_all();
         <td><?= h($bird->behavior); ?></td>
         <td><?= h($bird->conservation_level()); ?></td>
         <td><?= h($bird->backyard_tips); ?></td>
+        <td><a href="detail.php?id=<?= h($bird->id);?>">View</a></td>
       </tr>
       <?php } ?>
 
