@@ -17,8 +17,6 @@
         <th>Common Name</th>
         <th>Habitat</th>
         <th>Food</th>
-        <th>Nest Placement</th>
-        <th>Behavior</th>
         <th>Conservation Level</th>
         <th>Backyard Tips</th>
         <th>&nbsp;</th>
@@ -34,8 +32,6 @@ $birds = Bird::find_all();
         <td><?= h($bird->common_name); ?></td>
         <td><?= h($bird->habitat); ?></td>
         <td><?= h($bird->food); ?></td>
-        <td><?= h($bird->nest_placement); ?></td>
-        <td><?= h($bird->behavior); ?></td>
         <td><?= h($bird->conservation_level()); ?></td>
         <td><?= h($bird->backyard_tips); ?></td>
         <td><a href="detail.php?id=<?= h($bird->id);?>">View</a></td>

@@ -34,14 +34,6 @@
         <dd><?php echo h($bird->food); ?></dd>
       </dl>
       <dl>
-        <dt>Nest Placement</dt>
-        <dd><?php echo h($bird->nest_placement); ?></dd>
-      </dl>
-      <dl>
-        <dt>Behavior</dt>
-        <dd><?php echo h($bird->behavior); ?></dd>
-      </dl>
-      <dl>
         <dt>Conservation Level</dt>
         <dd><?php echo h($bird->conservation_level()); ?></dd>
       </dl>
