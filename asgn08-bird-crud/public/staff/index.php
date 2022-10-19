@@ -7,7 +7,7 @@
   <div id="main-menu">
     <h2>Main Menu</h2>
     <ul>
-      <li><a href="<?php echo url_for('/staff/bicycles/index.php'); ?>">Bicycles</a></li>
+      <li><a href="<?php echo url_for('/staff/birds/index.php'); ?>">Birds</a></li>
     </ul>
   </div>
 
