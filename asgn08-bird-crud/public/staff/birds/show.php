@@ -8,56 +8,37 @@ $bird = Bird::find_by_id($id);
 
 ?>
 
-<?php $page_title = 'Show Bird: ' . h($bird->common_name()); ?>
+<?php $page_title = 'Show Bird: ' . h($bird->common_name); ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 <div id="content">
 
   <a class="back-link" href="<?php echo url_for('/staff/birds/index.php'); ?>">&laquo; Back to List</a>
 
-  <div class="bicycle show">
+  <div class="bird show">
 
-    <h1>Bicycle: <?php echo h($bicycle->name()); ?></h1>
+    <h1>Bird: <?php echo h($bird->common_name); ?></h1>
 
     <div class="attributes">
-      <dl>
-        <dt>Brand</dt>
-        <dd><?php echo h($bicycle->brand); ?></dd>
+    <dl>
+        <dt>Common Name</dt>
+        <dd><?php echo h($bird->common_name); ?></dd>
       </dl>
       <dl>
-        <dt>Model</dt>
-        <dd><?php echo h($bicycle->model); ?></dd>
+        <dt>Habitat</dt>
+        <dd><?php echo h($bird->habitat); ?></dd>
       </dl>
       <dl>
-        <dt>Year</dt>
-        <dd><?php echo h($bicycle->year); ?></dd>
+        <dt>Food</dt>
+        <dd><?php echo h($bird->food); ?></dd>
       </dl>
       <dl>
-        <dt>Category</dt>
-        <dd><?php echo h($bicycle->category); ?></dd>
+        <dt>Conservation Level</dt>
+        <dd><?php echo h($bird->conservation_level()); ?></dd>
       </dl>
       <dl>
-        <dt>Color</dt>
-        <dd><?php echo h($bicycle->color); ?></dd>
+        <dt>Backyard Tips</dt>
+        <dd><?php echo h($bird->backyard_tips); ?></dd>
       </dl>
-      <dl>
-        <dt>Gender</dt>
-        <dd><?php echo h($bicycle->gender); ?></dd>
-      </dl>
-      <dl>
-        <dt>Weight</dt>
-        <dd><?php echo h($bicycle->weight_kg()) . ' / ' . h($bicycle->weight_lbs()); ?></dd>
-      </dl>
-      <dl>
-        <dt>Condition</dt>
-        <dd><?php echo h($bicycle->condition()); ?></dd>
-      </dl>
-      <dl>
-        <dt>Price</dt>
-        <dd><?php echo h('$'.number_format($bicycle->price, 2)); ?></dd>
-      </dl>
-      <dl>
-        <dt>Description</dt>
-        <dd><?php echo h($bicycle->description); ?></dd>
       </dl>
     </div>
 
