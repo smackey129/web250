@@ -3,6 +3,7 @@
 class Bird {
 
   static public $database;
+  public $errors = [];
 
   /**
    * Sets the database used for the Bird Class
