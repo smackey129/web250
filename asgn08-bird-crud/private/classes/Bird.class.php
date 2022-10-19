@@ -82,6 +82,24 @@ class Bird {
     }
   }
 
+  public function create() {
+
+    $sql = "INSERT INTO birds (";
+    $sql .= "common_name, habitat, food, conservation_id, backyard_tips";
+    $sql .= ") VALUES (";
+    $sql .= "'" . $this->common_name . "', ";
+    $sql .= "'" . $this->habitat . "', ";
+    $sql .= "'" . $this->food . "', ";
+    $sql .= "'" . $this->conservation_id . "', ";
+    $sql .= "'" . $this->backyard_tips . "'";
+    $sql .= ")";
+    $result = self::$database->query($sql);
+    if($result) {
+      $this->id = self::$database->insert_id;
+    }
+    return $result;
+  }
+
   public $id;
   public $common_name;
   public $habitat;

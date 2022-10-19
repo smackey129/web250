@@ -4,15 +4,15 @@
 
 $id = $_GET['id'] ?? '1'; // PHP > 7.0
 
-$bicycle = Bicycle::find_by_id($id);
+$bird = Bird::find_by_id($id);
 
 ?>
 
-<?php $page_title = 'Show Bicycle: ' . h($bicycle->name()); ?>
+<?php $page_title = 'Show Bird: ' . h($bird->common_name()); ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 <div id="content">
 
-  <a class="back-link" href="<?php echo url_for('/staff/bicycles/index.php'); ?>">&laquo; Back to List</a>
+  <a class="back-link" href="<?php echo url_for('/staff/birds/index.php'); ?>">&laquo; Back to List</a>
 
   <div class="bicycle show">
 

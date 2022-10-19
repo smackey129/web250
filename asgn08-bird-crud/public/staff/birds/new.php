@@ -7,16 +7,15 @@ if(is_post_request()) {
   // Create record using post parameters
   $args = $_POST['bird'];
   $bird = new Bird($args);
-  //$result = $bird->save();
-  var_dump($bird);
+  $result = $bird->create();
 
-  // if($result === true) {
-  //   $new_id = $bird->id;
-  //   $_SESSION['message'] = 'The bird was created successfully.';
-  //   redirect_to(url_for('/staff/birds/show.php?id=' . $new_id));
-  // } else {
-  //   // show errors
-  // }
+  if($result === true) {
+    $new_id = $bird->id;
+    $_SESSION['message'] = 'The bird was created successfully.';
+    redirect_to(url_for('/staff/birds/show.php?id=' . $new_id));
+  } else {
+    // show errors
+  }
 
 } else {
   // display the form
