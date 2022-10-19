@@ -1,5 +1,5 @@
 <footer>
-  &copy; <?php echo date('Y'); ?> Chain Gang
+  &copy; <?php echo date('Y'); ?> Birds of WNC
 </footer>
 
 </body>

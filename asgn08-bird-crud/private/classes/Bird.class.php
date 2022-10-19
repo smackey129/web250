@@ -85,8 +85,6 @@ class Bird {
   public $common_name;
   public $habitat;
   public $food;
-  public $nest_placement;
-  public $behavior;
   public $conservation_id;
   public $backyard_tips;
   public const CONSERVATION_LEVELS = [
