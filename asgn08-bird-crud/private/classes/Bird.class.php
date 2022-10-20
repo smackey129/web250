@@ -15,6 +15,15 @@ class Bird {
     self::$database = $database;
   }
 
+  protected function validate() {
+    $this->errors = [];
+
+    if(is_blank($this->common_name)) {
+      $this->errors[] = "Common Name cannot be blank";
+    }
+    return $this->errors;
+  }
+
   /**
    * A function that executes a prepared sql statement and returns an array of the results
    *
@@ -91,8 +100,10 @@ class Bird {
       return $this->create();
     }
   }
-  
+
   public function create() {
+    $this->validate();
+    if(!empty($this->errors)) { return false; }
 
     $attributes = $this->sanitized_attributes();
     $sql = "INSERT INTO birds (";
@@ -108,6 +119,8 @@ class Bird {
   }
 
   public function update() {
+    $this->validate();
+    if(!empty($this->errors)) { return false; }
 
     $attributes = $this->sanitized_attributes();
     $attribute_pairs = [];
@@ -118,6 +131,14 @@ class Bird {
     $sql = "UPDATE birds SET ";
     $sql .= join(', ', $attribute_pairs);
     $sql .= " WHERE id='" . self::$database->escape_string($this->id) . "' ";
+    $sql .= "LIMIT 1";
+    $result = self::$database->query($sql);
+    return $result;
+  }
+
+  public function delete() {
+    $sql = "DELETE FROM birds ";
+    $sql .= "WHERE id='" . self::$database->escape_string($this->id) . "' ";
     $sql .= "LIMIT 1";
     $result = self::$database->query($sql);
     return $result;
