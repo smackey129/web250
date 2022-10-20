@@ -83,6 +83,15 @@ class Bird {
     }
   }
 
+  public function save() {
+    // A new record will not have an ID yet
+    if(isset($this->id)) {
+      return $this->update();
+    } else {
+      return $this->create();
+    }
+  }
+  
   public function create() {
 
     $attributes = $this->sanitized_attributes();
@@ -91,11 +100,26 @@ class Bird {
     $sql .= ") VALUES ('";
     $sql .= join("', '", array_values($attributes));
     $sql .= "')";
-    var_dump($sql);
     $result = self::$database->query($sql);
     if($result) {
       $this->id = self::$database->insert_id;
     }
+    return $result;
+  }
+
+  public function update() {
+
+    $attributes = $this->sanitized_attributes();
+    $attribute_pairs = [];
+    foreach($attributes as $key => $value) {
+      $attribute_pairs[] = "{$key}='{$value}'";
+    }
+
+    $sql = "UPDATE birds SET ";
+    $sql .= join(', ', $attribute_pairs);
+    $sql .= " WHERE id='" . self::$database->escape_string($this->id) . "' ";
+    $sql .= "LIMIT 1";
+    $result = self::$database->query($sql);
     return $result;
   }
 
@@ -114,6 +138,14 @@ class Bird {
       $sanitized[$key] = self::$database->escape_string($value);
     }
     return $sanitized;
+  }
+
+  public function merge_attributes($args=[]) {
+    foreach($args as $key => $value) {
+      if(property_exists($this, $key) && !is_null($value)) {
+        $this->$key = $value;
+      }
+    }
   }
 
   public $id;
