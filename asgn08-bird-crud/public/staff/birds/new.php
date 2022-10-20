@@ -7,7 +7,7 @@ if(is_post_request()) {
   // Create record using post parameters
   $args = $_POST['bird'];
   $bird = new Bird($args);
-  $result = $bird->create();
+  $result = $bird->save();
 
   if($result === true) {
     $new_id = $bird->id;
