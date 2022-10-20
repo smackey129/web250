@@ -19,7 +19,7 @@ if(is_post_request()) {
 
 } else {
   // display the form
-  $bird = new Bird;
+  $bird = new Bird();
 }
 
 ?>
