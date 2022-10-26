@@ -27,6 +27,32 @@ class Admin extends DatabaseObject {
     return $this->first_name . " " . $this->last_name;
   }
 
+  /**
+   * Sets the hashed password property for the object
+   */
+  protected function set_hashed_password(){
+    $this->hashed_password = password_hash($this->password, PASSWORD_DEFAULT);
+  }
+
+  /**
+   * Adds an object into the database, returns false if it cannot do so
+   *
+   * @return  [boolean]  True if the operation was successful, false if it was not
+   */
+  protected function create(){
+    $this->set_hashed_password();
+    return parent::create();
+  }
+
+  /**
+   * Updates a record in the database for the object
+   *
+   * @return  [boolean]  True if the operation was successful, false if it was not
+   */
+  protected function update(){
+    $this->set_hashed_password();
+    return parent::update();
+  }
 }
 
 ?>
