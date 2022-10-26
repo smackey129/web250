@@ -87,13 +87,24 @@ class DatabaseObject
     $this->validate();
     if(!empty($this->errors)) { return false; }
 
-    $attributes = $this->sanitized_attributes();
+    $attributes = $this->attributes();
     $sql = "INSERT INTO " . static::$table_name . " (";
     $sql .= join(', ', array_keys($attributes));
-    $sql .= ") VALUES ('";
-    $sql .= join("', '", array_values($attributes));
-    $sql .= "')";
-    $result = self::$database->query($sql);
+    $sql .= ") VALUES (";
+    // $sql .= join("', '", array_values($attributes));
+    // $sql .= "')";
+    // $result = self::$database->query($sql);
+    $sql .= str_repeat('?, ', count($attributes) - 1);
+    $sql .= "?)";
+    $stmt = self::$database->prepare($sql);
+    $stmt->bind_param(str_repeat('s', count($attributes)), ...array_values($attributes));
+    $stmt->execute();
+    if(mysqli_stmt_errno($stmt) == 0) {
+      $result = true;
+    }
+    else { 
+      $result = false;
+    }
     if($result) {
       $this->id = self::$database->insert_id;
     }
@@ -110,17 +121,28 @@ class DatabaseObject
     $this->validate();
     if(!empty($this->errors)) { return false; }
 
-    $attributes = $this->sanitized_attributes();
+    $attributes = $this->attributes();
+
     $attribute_pairs = [];
     foreach($attributes as $key => $value) {
-      $attribute_pairs[] = "{$key}='{$value}'";
+      $attribute_pairs[] = "{$key}=?";
     }
 
     $sql = "UPDATE " . static::$table_name . " SET ";
     $sql .= join(', ', $attribute_pairs);
-    $sql .= " WHERE id='" . self::$database->escape_string($this->id) . "' ";
+    $sql .= " WHERE id=? ";
     $sql .= "LIMIT 1";
-    $result = self::$database->query($sql);
+    $args = array_values($attributes);
+    $args[] = $this->id;
+    $stmt = self::$database->prepare($sql);
+    $stmt->bind_param(str_repeat('s', count($attributes)) . 's', ...$args);
+    $stmt->execute();
+    if(mysqli_stmt_errno($stmt) == 0) {
+      $result = true;
+    }
+    else { 
+      $result = false;
+    }
     return $result;
   }
 
@@ -185,7 +207,7 @@ class DatabaseObject
    * @return  [Array]  An array that represents the result of the delete operation
    */
   public function delete() {
-    $result = false;
+    // $result = false;
     // $sql = "DELETE FROM " . static::$table_name . " ";
     // $sql .= "WHERE id='" . self::$database->escape_string($this->id) . "' ";
     // $sql .= "LIMIT 1";
@@ -193,7 +215,12 @@ class DatabaseObject
     $sql = self::$database->prepare("DELETE FROM " . static::$table_name . " WHERE id=? LIMIT 1");
     $sql->bind_param("s", $this->id);
     $sql->execute();
-    $result = $sql->get_result();
+    if(mysqli_stmt_errno($sql) == 0) {
+      $result = true;
+    }
+    else { 
+      $result = false;
+    }
     return $result;
   }
 
