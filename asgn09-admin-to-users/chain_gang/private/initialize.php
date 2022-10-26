@@ -32,6 +32,7 @@
   require_once("classes/databaseobject.class.php");
   require_once("classes/bicycles.class.php");
   require_once("classes/parsecsv.class.php");
+  require_once("classes/admin.class.php");
 
   // Autoload class definitions
   function my_autoload($class) {
