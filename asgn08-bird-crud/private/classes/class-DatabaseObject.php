@@ -13,10 +13,23 @@ class DatabaseObject
   static protected $db_columns = [];
   public $errors = [];
 
+  /**
+   * Sets the database to be used by the DatabaseObject Class
+   *
+   * @param   [mysqli_connection]  $database  The database to be used for the class
+   *
+   */
   static public function set_database($database) {
     self::$database = $database;
   }
 
+  /**
+   * Uses a prepared sql statement to find a record
+   *
+   * @param   [mysqli_stmt]  $sql  A prepared mysqli statement
+   *
+   * @return  [DatabaseObject]     An array of DatabaseObject objects
+   */
   static public function find_by_sql($sql) {
     $object_array = [];
     $sql->execute();
@@ -35,6 +48,11 @@ class DatabaseObject
     return $object_array;
   }
 
+  /**
+   * Returns all records in the table
+   *
+   * @return  [DatabaseObject]     An array of DatabaseObject objects
+   */
   static public function find_all() {
     $sql = self::$database->prepare("SELECT * FROM " . static::$table_name);
     return static::find_by_sql($sql);
@@ -51,6 +69,13 @@ class DatabaseObject
     }
   }
 
+  /**
+   * Creates a new DatabaseObject from a record
+   *
+   * @param   [Array]  $record  An array with key-value pairs that correspond with a DatabaseObject object
+   *
+   * @return  [DatabaseObject]  A new DatabaseObject created from the key-value pairs in the array
+   */
   static protected function instantiate($record) {
     $object = new static;
     // Could manually assign values to properties
