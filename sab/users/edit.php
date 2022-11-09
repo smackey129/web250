@@ -6,20 +6,20 @@ if(!isset($_GET['id'])) {
   redirect_to(url_for('/users/index.php'));
 }
 $id = $_GET['id'];
-$admin = admin::find_by_id($id);
-if($admin == false) {
+$user = User::find_by_id($id);
+if($user == false) {
   redirect_to(url_for('users/index.php'));
 }
 
 if(is_post_request()) {
 
   // Save record using post parameters
-  $args = $_POST['admin'];
-  $admin->merge_attributes($args);
-  $result = $admin->save();
+  $args = $_POST['user'];
+  $user->merge_attributes($args);
+  $result = $user->save();
 
   if($result === true) {
-    $_SESSION['message'] = 'The admin was updated successfully.';
+    $_SESSION['message'] = 'The user was updated successfully.';
     redirect_to(url_for('users/show.php?id=' . $id));
   } else {
     // show errors
@@ -33,8 +33,8 @@ if(is_post_request()) {
 
 ?>
 
-<?php $page_title = 'Edit admin'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php $page_title = 'Edit user'; ?>
+<?php include(SHARED_PATH . '/user_header.php'); ?>
 
   <a class="back-link" href="<?php echo url_for('/users/index.php'); ?>">&laquo; Back to List</a>
 
@@ -46,7 +46,7 @@ if(is_post_request()) {
     <form action="<?php echo url_for('/users/edit.php?id=' . h(u($id))); ?>" method="post">
 
       <?php include('form_fields.php'); ?>
-        <input type="submit" value="Edit admin" />
+        <input type="submit" value="Edit user" />
 
     </form>
 
