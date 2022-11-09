@@ -2,6 +2,8 @@
 DROP DATABASE IF EXISTS sabird;
 CREATE DATABASE sabird;
 
+GRANT ALL PRIVILEGES ON sabird.* TO 'webuser'@'localhost' IDENTIFIED BY 'P@ssword12345' WITH GRANT OPTION;
+
 -- Start here for running SQL on your webhost
 -- Make sure to select your database first from 
 -- the left-hand side menu choices
@@ -9,8 +11,6 @@ CREATE DATABASE sabird;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+05:00";
-
-GRANT ALL PRIVILEGES ON sabird.* TO 'webuser'@'localhost' IDENTIFIED BY 'P@ssword12345' WITH GRANT OPTION;
 
 DROP TABLE IF EXISTS birds;
 CREATE TABLE birds (
