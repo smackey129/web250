@@ -24,7 +24,7 @@ class DatabaseObject {
     }
 
     $result->free();
-
+    self::$database->refresh(MYSQLI_REFRESH_HOSTS);
     return $object_array;
   }
 
@@ -88,6 +88,7 @@ class DatabaseObject {
     $result = self::$database->query($sql);
     if($result) {
       $this->id = self::$database->insert_id;
+      self::$database->refresh(MYSQLI_REFRESH_TABLES);
     }
     return $result;
   }

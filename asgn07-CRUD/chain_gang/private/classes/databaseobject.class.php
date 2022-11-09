@@ -181,6 +181,7 @@ class DatabaseObject {
     $sql .= "WHERE id='" . self::$database->escape_string($this->id) . "' ";
     $sql .= "LIMIT 1";
     $result = self::$database->query($sql);
+    self::$database->refresh(MYSQLI_REFRESH_HOSTS);
     return $result;
   }
 
