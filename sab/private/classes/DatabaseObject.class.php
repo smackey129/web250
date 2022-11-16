@@ -138,6 +138,7 @@ class DatabaseObject {
     $sql = "DELETE FROM " . static::$table_name . " ";
     $sql .= "WHERE id='" . self::$database->escape_string($this->id) . "' ";
     $sql .= "LIMIT 1";
+    // echo $sql;
     $result = self::$database->query($sql);
     return $result;
 

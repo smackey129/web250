@@ -4,14 +4,21 @@ class Bird extends DatabaseObject {
 
   // ----- START OF ACTIVE RECORD CODE ------
   static protected $database;
+  static protected $table_name = "birds";
   static protected $db_columns = ['id', 'common_name', 'habitat', 'food', 'conservation_id', 'backyard_tips'];
 
   public $id;
   public $common_name;
   public $habitat;
   public $food;
-  public $conervation_id;
+  public $conservation_id;
   public $backyard_tips;
+  public const CONSERVATION_LEVELS = [
+    1 => 'Low',
+    2 => 'Moderate',
+    3 => 'High',
+    4 => 'Extreme'
+  ];
 
   public function __construct($args=[]) {
     $this->common_name = $args['common_name'] ?? '';
@@ -68,27 +75,6 @@ class Bird extends DatabaseObject {
       }
     }
     return $object;
-  }
-
-  // TODO: Walkthrough
-  public function update() {
-    $attributes = $this->sanitized_attributes();
-    $attribute_pairs = [];
-    foreach($attributes as $key => $value) {
-      $attribute_pairs[] = "{$key}='{$value}'";
-    }
-
-   // print_r($attribute_pairs); exit;
-
-    $sql = "UPDATE bird SET ";
-    $sql .= join(', ', $attribute_pairs);
-    $sql .= " WHERE id='" . self::$database->escape_string($this->id) . "' ";
-    $sql .= "LIMIT 1";
-
-echo $sql; exit;
-
-    $result = self::$database->query($sql);
-    return $result;
   }
 
 public function merge_attributes($arg=[]) {
@@ -161,9 +147,9 @@ public function create() {
     $this->weight_kg = floatval($value) / 2.2046226218;
   }
 
-  public function condition() {
-    if($this->condition_id > 0) {
-      return self::CONDITION_OPTIONS[$this->condition_id];
+  public function conservation_level() {
+    if($this->conservation_id > 0) {
+      return self::CONSERVATION_LEVELS[$this->conservation_id];
     } else {
       return "Unknown";
     }
