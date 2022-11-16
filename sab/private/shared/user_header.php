@@ -15,7 +15,16 @@
     <header>
       <h1>SA Birds Admin Area</h1>
     </header>
+    <navigation>
 
+        <?php 
+        require_login();
+        echo "<a href='../users'>Username Page</a><br>";
+        echo "<a href='../birds'>Birds Page</a><br>";
+        echo "<a href='../logout.php'>Logout</a>";
+        ?>
+
+    </navigation>
 
 
     <?php echo display_session_message(); ?>
