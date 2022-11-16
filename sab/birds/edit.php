@@ -18,7 +18,7 @@ if(is_post_request()) {
   $bird->merge_attributes($args);
   $result = $bird->save();
   if($result === true) {
-    $_SESSION['message'] = 'The bird was updated successfully.';
+    $session->message('The bird was updated successfully.');
     redirect_to(url_for('birds/show.php?id=' . $id));
   } else {
     // show errors

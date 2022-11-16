@@ -15,7 +15,7 @@ if(is_post_request()) {
 
   // Delete user
   $result = $user->delete();
-  $_SESSION['message'] = 'The user was deleted successfully.';
+  $session->message('The user was deleted successfully.');
   redirect_to(url_for('users/index.php'));
 
 } else {

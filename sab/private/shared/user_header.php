@@ -22,7 +22,7 @@
         echo "Username: ". $session->username . "<br>";
         echo "<a href='../users'>Username Page</a><br>";
         echo "<a href='../birds'>Birds Page</a><br>";
-        echo "<a href='../logout.php'>Logout</a>";
+        echo "<a href='../logout.php'>Logout</a><br>";
         ?>
 
     </navigation>
