@@ -20,6 +20,16 @@ class Bird extends DatabaseObject {
     4 => 'Extreme'
   ];
 
+  protected function validate() {
+    $this->errors = [];
+
+    if(is_blank($this->common_name)) {
+      $this->errors[] = "Common Name cannot be blank";
+    }
+
+    return $this->errors;
+  }
+
   public function __construct($args=[]) {
     $this->common_name = $args['common_name'] ?? '';
     $this->habitat = $args['habitat'] ?? '';
@@ -86,21 +96,6 @@ public function merge_attributes($arg=[]) {
       $this->$key = $value;
     }
   }
-}
-
-// TODO - show how array_keys and array_values work
-public function create() {
-  $attributes = $this->sanitized_attributes();
-  $sql = "INSERT INTO birds (";
-  $sql .= join(', ', array_keys($attributes));
-  $sql .= ") VALUES ('";
-  $sql .= join("', '", array_values($attributes));
-  $sql .= "')";
-  $result = self::$database->query($sql);
-  if($result) {
-    $this->id = self::$database->insert_id;
-  }
-  return $result;
 }
 
   // The properties which have the database columns excluding id
